@@ -1,0 +1,2 @@
+# SyllyScheduler
+Syllabus → Calendar Converter
