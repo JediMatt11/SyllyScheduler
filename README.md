@@ -17,7 +17,7 @@ SyllyScheduler is a web application designed to streamline academic organization
 ## 📁 Directory Structure
 
 ```text
-SoftwareEngineeringFinal/
+root/
 ├── static/           # Contains all CSS, JavaScript, and image assets for the frontend UI.
 ├── templates/        # Contains all HTML templates (index.html, confirmation.html, success.html).
 ├── uploads/          # Temporary storage directory for files uploaded by users prior to parsing.
@@ -40,4 +40,4 @@ OPENAI_API_KEY=your_openai_api_key
 DB_HOST=localhost
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
-DB_NAME=syllyscheduler_db```
+DB_NAME=syllyscheduler_db
