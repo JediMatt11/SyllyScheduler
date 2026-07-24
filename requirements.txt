@@ -1,0 +1,8 @@
+PyPDF2
+openai
+flask
+ics
+mysql-connector-python
+python-dotenv
+mammoth
+openpyxl

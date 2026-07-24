@@ -1,0 +1,1 @@
+This folder is for all of the CSS, JS if we are using any and images for the website.

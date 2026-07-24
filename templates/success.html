@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SyllyScheduler — Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+        .tutorial-container {
+            width: min(700px, 100%);
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: center;
+        }
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(45,171,111,0.1);
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .success-icon svg { width: 32px; height: 32px; }
+        
+        .tutorial-container h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy);
+            font-size: 28px;
+        }
+        .tutorial-container p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* --- Tabs System --- */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--surface);
+            padding: 6px;
+            border-radius: var(--radius-md);
+            margin-top: 10px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #fff;
+            color: var(--navy);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tab-content {
+            display: none;
+            text-align: left;
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        .tab-content.active { display: block; }
+        
+        .tab-content h4 {
+            color: var(--navy);
+            margin-bottom: 16px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-content ol {
+            padding-left: 20px;
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .tab-content li { margin-bottom: 8px; }
+
+        /* --- Bottom Action Buttons --- */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-restart {
+            background: var(--navy);
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .btn-restart:hover { background: var(--navy-mid); transform: translateY(-2px); }
+        
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--navy);
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            display: inline-block;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { 
+            background: #fff; 
+            border-color: var(--accent); 
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow-sm); 
+        }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(8,15,35,0.78);
+            backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        .modal-box {
+            background: #fff; max-width: 88%; max-height: 80vh; padding: 24px;
+            border-radius: var(--radius-md); overflow: auto; box-shadow: var(--shadow-lg); text-align: left;
+        }
+        .modal-box h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); margin-bottom: 12px; }
+        .modal-box pre { white-space: pre-wrap; word-break: break-word; font-size: 12.5px; line-height: 1.65; color: var(--text); }
+        .modal-close { background: var(--accent); color: #fff; border: none; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; cursor: pointer; transition: background 0.2s; }
+        .modal-close:hover { background: var(--accent-lt); }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="logo-wrap" href="/">
+        <div class="logo-icon">
+            <img src="{{ url_for('static', filename='syllschedlogo.png') }}"
+                 alt="SyllyScheduler logo"
+                 style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" />
+        </div>
+        <div class="logo-text">
+            <span class="logo-name">SyllyScheduler</span>
+            <span class="logo-tagline">Syllabus &rarr; Calendar</span>
+        </div>
+    </a>
+</header>
+
+<main>
+    <section class="tutorial-container">
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </div>
+        <h2>Success! Your calendar is ready.</h2>
+        <p>Your <b>SyllySchedule.ics</b> file has been downloaded. If your calendar app didn't open automatically, select your preferred app below for quick import instructions.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('tab-google')">Google Calendar</button>
+            <button class="tab-btn" onclick="openTab('tab-apple')">Apple Calendar</button>
+            <button class="tab-btn" onclick="openTab('tab-outlook')">Outlook</button>
+        </div>
+
+        <div id="tab-google" class="tab-content active">
+            <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="#DB4437"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Importing to Google Calendar</h4>
+            <ol>
+                <li>Open Google Calendar in your web browser.</li>
+                <li>In the top right, click the <b>Settings icon (Gear)</b> &gt; <b>Settings</b>.</li>
+                <li>In the left menu, click <b>Import & Export</b>.</li>
+                <li>Click <b>Select file from your computer</b> and choose the downloaded <i>SyllySchedule.ics</i> file.</li>
+                <li>Choose which calendar to add the events to, then click <b>Import</b>.</li>
+            </ol>
+        </div>
+
+        <div id="tab-apple" class="tab-content">
+            <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M15.54 11.02c-.04-2.5 2.05-3.73 2.15-3.79-1.16-1.7-2.97-1.93-3.62-1.95-1.54-.15-3.02.9-3.8.9-.78 0-2-.88-3.26-.85-1.63.03-3.14.95-3.98 2.41-1.7 2.95-.44 7.33 1.22 9.72.81 1.18 1.77 2.49 3.03 2.44 1.22-.04 1.68-.78 3.16-.78 1.48 0 1.98.78 3.18.75 1.24-.03 2.07-1.2 2.87-2.37 1.03-1.52 1.46-2.99 1.48-3.07-.03-.01-2.36-.9-2.39-3.41zM11.96 4.79c.67-.81 1.12-1.94.99-3.07-1 .04-2.18.66-2.87 1.47-.6.71-1.13 1.87-.97 2.98 1.12.08 2.19-.57 2.85-1.38z"/></svg> Importing to Apple Calendar</h4>
+            <ol>
+                <li><b>On Mac:</b> Simply double-click the downloaded <i>SyllySchedule.ics</i> file. Apple Calendar will open and ask which calendar you want to add the events to.</li>
+                <li><b>On iPhone/iPad:</b> If you downloaded this on your computer, email the file to yourself or send it via AirDrop. Tap the file attachment on your mobile device to add all events.</li>
+            </ol>
+        </div>
+
+        <div id="tab-outlook" class="tab-content">
+            <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="#0078D4"><path d="M22 20V4H2v16h20zM6 16v-2h12v2H6zm0-4V8h12v4H6z"/></svg> Importing to Microsoft Outlook</h4>
+            <ol>
+                <li><b>Desktop App:</b> Double-click the <i>SyllySchedule.ics</i> file. Outlook will open and prompt you to "Import" or "Open as New". Choose <b>Import</b> to add them to your main calendar.</li>
+                <li><b>Outlook on the Web:</b> Go to your calendar, click <b>Add calendar</b> &gt; <b>Upload from file</b>.</li>
+                <li>Browse for the <i>SyllySchedule.ics</i> file, select your preferred calendar, and click <b>Import</b>.</li>
+            </ol>
+        </div>
+
+        <div class="action-buttons">
+            <button id="view-json-btn" class="btn-secondary">View Raw JSON</button>
+            <a href="/" class="btn-restart">Parse Another Syllabus</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    &copy; 2026 SyllyScheduler. All rights reserved. &nbsp;|&nbsp;
+    Built for CS&nbsp;Final Project
+</footer>
+
+<div id="rawJsonModal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+    <div class="modal-box">
+        <button id="closeRawJson" class="modal-close">&#10005; Close</button>
+        <h3 id="modalTitle">Parsed JSON (raw)</h3>
+        <pre id="rawJsonText"></pre>
+    </div>
+</div>
+
+<script>
+    // Simple tab switching logic
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Fetch and display Raw JSON
+    document.getElementById('view-json-btn').addEventListener('click', async () => {
+        try {
+            const rawResp = await fetch('/raw_json');
+            if (rawResp.ok) {
+                const rawJson = await rawResp.json();
+                if (rawJson && rawJson.raw) {
+                    document.getElementById('rawJsonText').textContent = rawJson.raw;
+                    document.getElementById('rawJsonModal').style.display = 'flex';
+                } else {
+                    alert("No JSON data found. You may need to parse a file first.");
+                }
+            } else {
+                alert("Could not fetch the JSON data.");
+            }
+        } catch (err) {
+            console.error('Could not fetch raw JSON:', err);
+            alert("Error fetching JSON.");
+        }
+    });
+
+    // Modal Close behavior
+    document.getElementById('closeRawJson').addEventListener('click', () => {
+        document.getElementById('rawJsonModal').style.display = 'none';
+    });
+    document.getElementById('rawJsonModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) e.currentTarget.style.display = 'none';
+    });
+</script>
+</body>
+</html>
