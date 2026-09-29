@@ -46,3 +46,4 @@ DB_NAME=syllyscheduler_db
 ### Creators
 - Jacob Constant (Scrum Master)
 - Matt Natario
+- Ryan Moylan
