@@ -41,3 +41,8 @@ DB_HOST=localhost
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_NAME=syllyscheduler_db
+```
+
+### Creators
+- Jacob Constant (Scrum Master)
+- 
